@@ -1,11 +1,10 @@
 <?php
-$isHome = $pageName == "home" ? "selected" : "";
-$isLoops = $pageName == "loops" ? "selected" : "";
-$isCountdown = $pageName == "countdown" ? "selected" : "";
 
-?>
+$isHome =$_SERVER['REQUEST_URI'] =='/';
+$isLoops = $_SERVER['REQUEST_URI'] =='/loops/';
+$isCountdown = $_SERVER['REQUEST_URI'] =='/countdown/';
 
-<nav>
+?><nav>
     <ul>
         <li class="<?=$isHome?>">
             <a href="/">Home</a>

@@ -1,6 +1,4 @@
-<?php
-    $pageName = "home";
-?><!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +17,7 @@
             include "includes/navigation.php"
         ?>
         <main>
-            <img src="images/motorcycle.jpg" alt="">
+            <img src="images/motorcycle.jpg" alt="" width="450px" height="650px">
             <p>Hi, My name is Thomas Quinn. I like riding motorcycles, Fishing and playing videogames.</p>
         </main>
     </div>

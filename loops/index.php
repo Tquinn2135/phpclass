@@ -1,6 +1,4 @@
-<?php
-    $pageName ="loops"
-?><!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +17,58 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
-        Todo: put file Content here
+<?php
+//$level = 4;
+for($i = 1; $i<= 6; $i++){
+    echo "<h$i>test</h$i>";
+}
+
+for($i = 6; $i>= 1; $i--){
+    echo "<h$i>test</h$i>";
+}
+
+$i = 1;
+while ($i <=6) {
+    echo "<h$i>test</h$i>";
+    $i++;
+}
+
+while ($i > 1){
+    $i--;
+    echo "<h$i>test</h$i>";
+}
+
+$a= "100";
+$b= "50";
+
+//echo "<p>" . ($a + $b) . "</p>"
+
+$firstName = "tOm";
+$lastName = "quInN";
+
+//$fullName = "$firstName $lastName";
+//$fullName = strtolower("$firstName $lastName");
+
+$fullName= strtolower($firstName) . " " . strtolower($lastName);
+
+
+echo strtolower($fullName);
+
+//var_dump(str_split($fullName));
+
+echo strpos($fullName, 0);
+
+echo $fullName[0];
+
+//echo explode($fullName);
+//$fullName = strtolower($firstName) . " " . strtolower($lastName);
+
+//echo $fullName;
+//echo strtolower($fullName);
+//echo strtoupper($fullName);
+
+
+?>
     </main>
 </div>
 <?php
