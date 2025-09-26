@@ -35,6 +35,15 @@ header {
     flex-grow: 1;
 }
 
+#diceGame{
+
+    min-height: 150px;
+    align-items: center;
+    width: 100%;
+    margin-left: 450px;
+
+}
+
 nav > ul {
     list-style-type: none;
 

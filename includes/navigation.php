@@ -4,6 +4,7 @@ $isHome =$_SERVER['REQUEST_URI'] =='/';
 $isLoops = $_SERVER['REQUEST_URI'] =='/loops/';
 $isCountdown = $_SERVER['REQUEST_URI'] =='/countdown/';
 $is8ball = $_SERVER['REQUEST_URI']== '/8ball';
+$isDiceGame = $_SERVER['REQUEST_URI']== '/dicegame';
 
 ?><nav>
     <ul>
@@ -18,6 +19,9 @@ $is8ball = $_SERVER['REQUEST_URI']== '/8ball';
         </li>
         <li class ="<?$is8ball?>">
             <a href="/8ball">Magic 8 Ball</a>
+        </li>
+        <li class ="<?=$isDiceGame?>">
+            <a href="/dicegame">Dice Game</a>
         </li>
     </ul>
 </nav>
