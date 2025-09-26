@@ -1,15 +1,18 @@
 <?php
- $die =[
-     'dice_1.png',
-     'dice_2.png',
-     'dice_3.png',
-     'dice_4.png',
-     'dice_5.png',
-     'dice_6.png'
- ];
+session_start();
 
- $playerRoll = [$die, $die];
- $cpuRoll = [$die, $die, $die];
+ $die = array();
+     $die[0] = 'images/dice_1.png';
+     $die[1] = 'images/dice_2.png';
+     $die[2] = 'images/dice_3.png';
+     $die[3]= 'images/dice_4.png';
+     $die[4] = 'images/dice_5.png';
+     $die[5] = 'images/dice_6.png';
+
+ $iDie=mt_rand(0,5);
+
+ $playerRoll = [];
+ $cpuRoll = [];
 
 
 
@@ -37,9 +40,15 @@ include "../includes/header.php"
             <h1>The Dice Game</h1>
             <p> Throw your dice</p>
             <br />
-            <button name="Throw">
+            <form method="post">
+                <button type="submit" name="throw">Roll Dice</button>
+            </form>
+            <div id="playerThrow">
 
-            </button>
+            </div>
+            <div id="computerThrow">
+
+            </div>
         </div>
 
     </main>
