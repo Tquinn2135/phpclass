@@ -1,18 +1,31 @@
 <?php
 session_start();
 
- $die = array();
-     $die[0] = 'images/dice_1.png';
-     $die[1] = 'images/dice_2.png';
-     $die[2] = 'images/dice_3.png';
-     $die[3]= 'images/dice_4.png';
-     $die[4] = 'images/dice_5.png';
-     $die[5] = 'images/dice_6.png';
+if(isset($_POST["btnRoll"])){
+    $pScore = $_POST["btnRoll"];
+}
 
- $iDie=mt_rand(0,5);
+ $pDice1= mt_rand(1,6);
+ $pDice2= mt_rand(1,6);
 
- $playerRoll = [];
- $cpuRoll = [];
+ $pScore = $pDice1 + $pDice2;
+
+ $cpuDice1= mt_rand(1,6);
+ $cpuDice2= mt_rand(1,6);
+ $cpuDice3= mt_rand(1,6);
+
+ $cpuScore = $cpuDice1 + $cpuDice2 + $cpuDice3;
+if($cpuScore == $pScore){
+    $winner = "No one";
+}
+ if ($pScore >= $cpuScore){
+     $winner= "Player";
+ }
+ else{
+     $winner = "Computer Player";
+ }
+
+
 
 
 
@@ -38,17 +51,34 @@ include "../includes/header.php"
     <main>
         <div id="diceGame">
             <h1>The Dice Game</h1>
+            <br>
             <p> Throw your dice</p>
             <br />
             <form method="post">
-                <button type="submit" name="throw">Roll Dice</button>
+                <button type="submit" name="btnRoll">Roll Dice</button>
             </form>
             <div id="playerThrow">
-
+                <img src="/images/dice_<?=$pDice1?>.png" alt="">
+                <img src="/images/dice_<?=$pDice2?>.png" alt="">
             </div>
             <div id="computerThrow">
-
+                <img src="/images/dice_<?=$cpuDice1?>.png" alt="">
+                <img src="/images/dice_<?=$cpuDice2?>.png" alt="">
+                <img src="/images/dice_<?=$cpuDice3?>.png" alt="">
             </div>
+            <div id="playerScore">
+                Player Score: <?=$pScore?>
+            </div>
+            <br>
+            <div id="computerScore">
+                <p>
+                    Computer Score: <?=$cpuScore?>
+                </p>
+                <br>
+            </div>
+            <p>
+                <?=$winner?> Wins!
+            </p>
         </div>
 
     </main>
