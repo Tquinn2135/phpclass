@@ -77,7 +77,7 @@ include "../includes/header.php"
                 <br>
             </div>
             <p>
-                <?=$winner?> Wins!
+                <?=$winner?> Wins!!!
             </p>
         </div>
 
