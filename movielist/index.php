@@ -18,8 +18,11 @@
             margin:  10px auto;
             table-layout: fixed;
         }
+        tr{
+            border: 1px solid black;
+        }
         th, td {
-            border: 1px;
+            border: 1px solid black;
             padding: .2rem;
             text-align: center;
         }
@@ -52,7 +55,8 @@ include "../includes/header.php"
                 <td>G</td>
             </tr>
 <?php
-    $con = mysqli_connect("localhost", "dbuser", "dbdev123", "phpclass");
+   include "../includes/db.php";
+   $con = getDBConnection();
     $result = mysqli_query($con,"SELECT * FROM movielist");
 
     while ($row = mysqli_fetch_array($result)){
@@ -62,13 +66,14 @@ include "../includes/header.php"
         $movieRating = $row["MovieRating"];
 
         echo "<tr>";
-        echo "    <td>321</td>";
-        echo "    <td>The Little Mermaid</td>";
-        echo "    <td>G</td>";
+        echo "    <td>$movieID</td>";
+        echo "    <td>$movieTitle</td>";
+        echo "    <td>$movieRating</td>";
         echo "</tr>";
     }
 ?>
         </table>
+        <a href="addmovie.php">Add a new Movie</a>
     </main>
 </div>
 <?php
