@@ -118,17 +118,17 @@ include "../includes/header.php"
                 </div>
 
                 <div class="customer-fname">
-                    <label for="txtFName">First Name</label>
+                    <label for="txtFirstName">First Name</label>
                 </div>
                 <div class="fname-input">
-                    <input type="text" name="txtFName" id="txtFName">
+                    <input type="text" name="txtFirstName" id="txtFirstName">
                 </div>
 
                 <div class="customer-lname">
-                    <label for="txtLName">Last Name</label>
+                    <label for="txtLastName">Last Name</label>
                 </div>
                 <div class="lname-input">
-                    <input type="text" name="txtLName" id="txtLName">
+                    <input type="text" name="txtLastName" id="txtLastName">
                 </div>
 
                 <div class="customer-address">
