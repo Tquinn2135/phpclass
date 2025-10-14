@@ -1,15 +1,16 @@
 <?php
 
-if(!empty($_POST["CustomerID"])){
+if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"])){
     include "../includes/db.php";
     $con = getDBConnection();
 
     $txtFirstName =$_POST["txtFirstName"];
     $txtLastName =$_POST["txtLastName"];
-    $txtAddress =$_GET["txtAddress"];
+    $txtAddress =$_POST["txtAddress"];
     $txtCity =$_POST["txtCity"];
     $txtState =$_POST["txtState"];
     $txtZip =$_POST["txtZip"];
+    $txtPhone= $_POST["txtPhone"];
     $txtEmail= $_POST["txtEmail"];
     $txtPassword= $_POST["txtPassword"];
 
@@ -18,7 +19,8 @@ if(!empty($_POST["CustomerID"])){
         $query = "INSERT INTO customers (firstName, lastName, address, city, state, zip, phone, 
                                          email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "ss", $txtFirstName, $txtLastName);
+        mysqli_stmt_bind_param($stmt, "sssssssss", $txtFirstName, $txtLastName, $txtAddress,
+                                $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
         mysqli_stmt_execute($stmt);
 
         header("Location:index.php");
@@ -108,7 +110,7 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
-        <form method="get">
+        <form method="post">
             <div class = "grid-container">
 
                 <div class="grid-header">
