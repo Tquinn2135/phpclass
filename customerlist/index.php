@@ -59,15 +59,15 @@ $result = mysqli_query($con,"SELECT * FROM customers");
 while ($row = mysqli_fetch_array($result)){
 
     $CustomerID = $row["CustomerID"];
-    $firstName = $row["FirstName"];
-    $lastName = $row["LastName"];
-    $address = $row["Address"];
-    $city = $row["City"];
-    $state = $row["State"];
-    $zip = $row["Zip"];
+    $firstName = $row["firstName"];
+    $lastName = $row["lastName"];
+    $address = $row["address"];
+    $city = $row["city"];
+    $state = $row["state"];
+    $zip = $row["zip"];
     $phone = $row["phone"];
     $email = $row["email"];
-    $password = $row["password"];
+    $password = "Hidden";
 
     echo "<tr>";
     echo "    <td>$CustomerID</td>";
