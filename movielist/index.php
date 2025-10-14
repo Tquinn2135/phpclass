@@ -18,6 +18,14 @@
             margin:  10px auto;
             table-layout: fixed;
         }
+        table a {
+            color: #097ada;
+
+        }
+        table a:hover{
+            text-decoration: underline;
+        }
+
         tr{
             border: 1px solid black;
         }
@@ -44,16 +52,6 @@ include "../includes/header.php"
                 <th>Title</th>
                 <th>Rating</th>
             </tr>
-            <tr>
-                <td>456</td>
-                <td>Jaws</td>
-                <td>R</td>
-            </tr>
-            <tr>
-                <td>321</td>
-                <td>The Little Mermaid</td>
-                <td>G</td>
-            </tr>
 <?php
    include "../includes/db.php";
    $con = getDBConnection();
@@ -67,7 +65,9 @@ include "../includes/header.php"
 
         echo "<tr>";
         echo "    <td>$movieID</td>";
-        echo "    <td>$movieTitle</td>";
+        echo "    <td>";
+        echo "          <a href='movie.php?id=$movieID'>$movieTitle</a>";
+        echo "    </td>";
         echo "    <td>$movieRating</td>";
         echo "</tr>";
     }

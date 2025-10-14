@@ -1,11 +1,11 @@
 <?php
 
-if(!empty($_GET["txtTitle"]) && !empty($_GET["txtRating"])){
+if(!empty($_POST["txtTitle"]) && !empty($_POST["txtRating"])){
     include "../includes/db.php";
     $con = getDBConnection();
 
-    $txtTitle =$_GET["txtTitle"];
-    $txtRating =$_GET["txtRating"];
+    $txtTitle =$_POST["txtTitle"];
+    $txtRating =$_POST["txtRating"];
 
     try {
         $query = "INSERT INTO movielist (MovieTitle, MovieRating) VALUES (?, ?);";
@@ -29,36 +29,7 @@ if(!empty($_GET["txtTitle"]) && !empty($_GET["txtRating"])){
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tom's Website</title>
     <link rel="stylesheet" href="/css/base.css">
-    <style>
-        .grid-header{ grid-area: grid-header; }
-        .movie-title{ grid-area: movie-title; }
-        .title-input{ grid-area: title-input; }
-        .movie-rating{ grid-area: movie-rating; }
-        .rating-input{ grid-area: rating-input; }
-        .grid-footer{ grid-area: grid-footer; }
-
-        .grid-container{
-            display: grid;
-            grid-template-areas:
-                'grid-header grid-header'
-                'movie-title title-input'
-                'movie-rating rating-input'
-                'grid-footer grid-footer'
-            ;
-            border: 1px solid black;
-        }
-
-        .grid-container > div {
-            border: 1px solid black;
-            text-align: center;
-        }
-
-        .grid-container input[type= "text"]{
-            width: 98%;
-            margin: 2px  0;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./css/grid.css">
 </head>
 <body>
 <?php
@@ -69,7 +40,7 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
-        <form method="get">
+        <form method="post">
             <div class = "grid-container">
 
                 <div class="grid-header">
@@ -82,7 +53,7 @@ include "../includes/header.php"
                     <input type="text" name="txtTitle" id="txtTitle">
                 </div>
                 <div class="movie-rating">
-                    <lable for="txtRating">Movie Rating</lable>
+                    <label for="txtRating">Movie Rating</label>
                 </div>
                 <div class="rating-input">
                     <input type="text" name="txtRating" id="txtRating">
