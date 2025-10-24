@@ -57,7 +57,7 @@
         }
         //
         if (!empty($_POST["txtEmail"])){
-            if (!str_contains($_POST["txtEmail"], '.')!== true && strpos($_POST["txtEmail"], '@')!== true){
+            if (!str_contains($_POST["txtEmail"], '.')!== true && str_contains($_POST["txtEmail"], '@')!== true){
                 $Email = $_POST["txtEmail"];
             }
             else{
