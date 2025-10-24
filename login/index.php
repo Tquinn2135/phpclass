@@ -1,25 +1,27 @@
 <?php
+    session_start();
+    if(!empty($_POST["txtUserName"]) && !empty($_POST["txtUserPassword"])){
+        include "../includes/db.php";
+        $con = getDBConnection();
 
-if(!empty($_POST["txtUserName"]) && !empty($_POST["txtUserPassword"])){
-    include "../includes/db.php";
-    $con = getDBConnection();
+        $userName = $_POST["txtUserName"];
+        $password = $_POST["txtUserPassword"];
 
-    $userName = $_POST["txtUserName"];
-    $password = $_POST["txtUserPassword"];
-
-    if ($userName == "admin" && $password == "p@ss")
-    {
-        header( "Location: admin.php");
-    }
-    else
-    {
-        if ($userName == "member" && $password == "p@ss")
+        if ($userName == "admin" && $password == "p@ss")
         {
-            header( "Location: member.php");
+            $_SESSION["UID"] = 1;
+
+            header( "Location: admin.php");
         }
-        $msg = "Wrong Username or Password";
+        else
+        {
+            if ($userName == "member" && $password == "p@ss")
+            {
+                header( "Location: member.php");
+            }
+            $msg = "Wrong Username or Password";
+        }
     }
-}
 
 ?><!doctype html>
 <html lang="en">
