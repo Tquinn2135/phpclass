@@ -1,4 +1,7 @@
 /* css reset */
+#err{
+    color: red;
+}
 
 * {
     margin: 0;

@@ -7,6 +7,8 @@ $is8ball = $_SERVER['REQUEST_URI']== '/8ball';
 $isDiceGame = $_SERVER['REQUEST_URI']== '/dicegame';
 $isMovieList = $_SERVER['REQUEST_URI']== '/movielist';
 $isCustomerList = $_SERVER['REQUEST_URI']== '/customerlist';
+$isLogin= $_SERVER['REQUEST_URI'] == '/login'
+
 ?><nav>
     <ul>
         <li class="<?=$isHome?>">
@@ -29,6 +31,9 @@ $isCustomerList = $_SERVER['REQUEST_URI']== '/customerlist';
         </li>
         <li class="<?=$isCustomerList?>">
             <a href="/customerlist">Customer List</a>
+        </li>
+        <li class="<?=$isLogin?>">
+            <a href="/login">Login</a>
         </li>
     </ul>
 </nav>
