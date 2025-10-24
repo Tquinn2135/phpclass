@@ -71,7 +71,9 @@ while ($row = mysqli_fetch_array($result)){
 
     echo "<tr>";
     echo "    <td>$CustomerID</td>";
-    echo "    <td>$firstName</td>";
+    echo "    <td>";
+    echo "    <a href='customer.php?id=$CustomerID'>$firstName</a>";
+    echo "    </td>";
     echo "    <td>$lastName</td>";
     echo "    <td>$address</td>";
     echo "    <td>$city</td>";

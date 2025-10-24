@@ -1,0 +1,37 @@
+.grid-header{ grid-area: grid-header; }
+.customer-firstName{ grid-area: customer-firstName; }
+.customer-lastName{ grid-area: customer-lastName; }
+.customer-address{ grid-area: customer-address; }
+.customer-city{ grid-area: customer-city; }
+.customer-state{ grid-area: customer-state; }
+.customer-zip{ grid-area: customer-zip; }
+.customer-phone{ grid-area: customer-phone; }
+.customer-email{ grid-area: customer-email; }
+.grid-footer{ grid-area: grid-footer; }
+
+.grid-container{
+    display: grid;
+    grid-template-areas:
+                'grid-header grid-header'
+                'customer-firstName firstName-input'
+                'customer-lastName lastName-input'
+                'customer-address address-input'
+                'customer-city city-input'
+                'customer-state state-input'
+                'customer-zip zip-input'
+                'customer-phone phone-input'
+                'customer-email email-input'
+                'grid-footer grid-footer'
+;
+    border: 1px solid black;
+}
+
+.grid-container > div {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.grid-container input[type= "text"]{
+    width: 98%;
+    margin: 2px  0;
+}
