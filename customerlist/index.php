@@ -50,7 +50,7 @@ include "../includes/header.php"
                 <th>email</th>
                 <th>password</th>
             </tr>
-        
+
 <?php
 include "../includes/db.php";
 $con = getDBConnection();
@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_array($result)){
     $zip = $row["zip"];
     $phone = $row["phone"];
     $email = $row["email"];
-    $password = "Hidden";
+    $password = $row["password"];
 
     echo "<tr>";
     echo "    <td>$CustomerID</td>";

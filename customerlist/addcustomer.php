@@ -1,5 +1,5 @@
 <?php
-
+$customerKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"])){
     include "../includes/db.php";
     $con = getDBConnection();
@@ -16,11 +16,13 @@ if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"])){
 
 
     try {
+        $hashedPasswd = md5($txtPassword . $customerKey);
+
         $query = "INSERT INTO customers (firstName, lastName, address, city, state, zip, phone, 
-                                         email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                                         email, password, customerKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "sssssssss", $txtFirstName, $txtLastName, $txtAddress,
-                                $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
+        mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress,
+                                $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $hashedPasswd, $customerKey);
         mysqli_stmt_execute($stmt);
 
         header("Location:index.php");
@@ -177,7 +179,7 @@ include "../includes/header.php"
                     <label for="txtPassword">Password</label>
                 </div>
                 <div class="password-input">
-                    <input type="text" name="txtPassword" id="txtPassword">
+                    <input type="password" name="txtPassword" id="txtPassword">
                 </div>
 
                 <div class="grid-footer">
