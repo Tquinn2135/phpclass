@@ -1,26 +1,48 @@
 <?php
     session_start();
-    if(!empty($_POST["txtUserName"]) && !empty($_POST["txtUserPassword"])){
+    if(!empty($_POST["txtEmail"]) && !empty($_POST["txtUserPassword"])){
         include "../includes/db.php";
         $con = getDBConnection();
 
-        $userName = $_POST["txtUserName"];
+        //$userName = $_POST["txtUserName"];
+        $email = $_POST["txtEmail"];
         $password = $_POST["txtUserPassword"];
 
-        if ($userName == "admin" && $password == "p@ss")
-        {
-            $_SESSION["UID"] = 1;
+        $sql = mysqli_prepare($con ,"select MemberPassword, MemberKey, RoleID, MemberID from memberLogin where MemberEmail = ?");
+        mysqli_stmt_bind_param($sql, "s" , $email);
+        mysqli_stmt_execute($sql);
+        $result = mysqli_stmt_get_result($sql);
+        $row = mysqli_fetch_array($result);
 
-            header( "Location: admin.php");
-        }
-        else
-        {
-            if ($userName == "member" && $password == "p@ss")
-            {
-                header( "Location: member.php");
+//        if ($row != null){
+//            echo "got it";
+//        }
+//        else{
+//            echo "nope";
+//        }
+
+
+        if ($row != null){
+            $DBPass = $row["memberPassword"];
+            $MemberKey= $row["memberKey"];
+            $password = md5($password . $MemberKey);
+
+            if ($password == $DBPass){
+                $_SESSION["roleID"] = $row["roleID"];
+                $_SESSION["UID"] = $row["memberID"];
+                if($row["roleID"]==1){
+                    header("Location: admin.php");
+                }else{
+                    header("Location: member.php");
+                }
+            }else{
+                $msg = "Sorry Wrong Username or Password";
             }
-            $msg = "Wrong Username or Password";
+
+        }else{
+            $msg = "Sorry Wrong Username or Password";
         }
+
     }
 
 ?><!doctype html>
@@ -46,8 +68,8 @@ include "../includes/header.php"
         <form method="post">
             <div class = "grid-container">
                 <div class = "item1"><h3>Login</h3></div>
-                <div class = item2>User Login</div>
-                <div class="item3"><input type="text" name="txtUserName" id="txtUserName" size="40"></div>
+                <div class = item2>Email Login</div>
+                <div class="item3"><input type="text" name="txtEmail" id="txtEmail" size="40"></div>
                 <div class = item4>Password</div>
                 <div class="item5"><input type="password" name="txtUserPassword" id="txtUserPassword" size="40"></div>
                 <div class="item6"><input type="submit" value="Sign In"></div>

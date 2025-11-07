@@ -1,98 +1,77 @@
 <?php
     session_start();
 
+    $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+//echo sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+
+//echo md5("fishing" . $memberKey);
+
     include "../includes/db.php";
     $con = getDBConnection();
 
     $minLength = 4;
     $err = "";
 
-    if (!isset($_SESSION["UID"])){
+    if ($_SESSION["roleID"] != 1){
         header("Location: index.php");
     }
 
+    $Username = $_POST["txtUserName"];
+    $Password = $_POST["txtUserPassword"];
+    $Password2 = $_POST["txtUserPassword2"];
+    $Email = $_POST["txtEmail"];
+    $Role = $_POST["txtRole"];
+
     if (isset($_POST["btnSubmit"])){
-        if (!empty($_POST["txtUserName"])){
-            if (strlen($_POST["txtUserName"]) > $minLength){
-                $Username = $_POST["txtUserName"];
-            }
-            else
-            {
-                $err = "Username is too short";
-            }
-        }
-        else
-        {
+
+        if (empty($Username)) {
             $err = "Username required";
         }
-        //$Password = $_POST["txtUserPassword"];
-        if (!empty($_POST["txtUserPassword"])){
-            if (strlen($_POST["txtUserPassword"]) > $minLength)
-            {
-                $Password = $_POST["txtUserPassword"];
-            }
-            else
-            {
-                $err = "Password is too short";
-            }
+        else if (strlen($Username) < $minLength) {
+            $err = "Username is too short";
         }
-        else
-        {
+
+        if (empty($Password)) {
             $err = "Password required";
         }
-
-        if(!empty($_POST["txtUserPassword2"])){
-            $Password2 = $_POST["txtUserPassword2"];
-        }else{
-            $Password2 = "";
+        else if (strlen($Password) < $minLength)
+        {
+            $err = "Password is too short";
         }
 
-        if($Password != $Password2){
+        if(empty($_POST["txtUserPassword2"])) {
+            $err = "Password verification required";
+        }
+        else if($Password != $Password2) {
             $err = "passwords don't match";
         }
-        if (!empty($_POST["txtRole"])){
-            $Role = $_POST["txtRole"];
-        }else{
+
+        if (empty($Role)) {
             $err = "Role must be selected";
         }
-        //
-        if (!empty($_POST["txtEmail"])){
-            if (!str_contains($_POST["txtEmail"], '.')!== true && str_contains($_POST["txtEmail"], '@')!== true){
-                $Email = $_POST["txtEmail"];
-            }
-            else{
-                $err = "Email must contain a '@' and a '.' ";
-            }
-        }
-        else
-        {
+
+        if (empty($Email)) {
             $err = "Email required";
         }
 
+        if ($err == ""){
+            //echo "$Username-$Password-$Password2-$memberKey-$Email-$Role";
 
+            $hashedPassword = md5($Password . $memberKey);
 
-        if ($err==""){
+            //$memberKey = 'xxxxxxxxx';
 
-
-            $memberKey = 'xxxxxxxxx';
-
-            $sql = mysqli_prepare($con, "insert into memberLogin (MemberName, MemberEmail, MemberPassword,
-                         Role, MemberKey) values (?,?,?,?,?)");
-            mysqli_stmt_bind_param($sql,"sssis", $Username, $Password, $Role, $Email, $memberKey);
+            $sql = mysqli_prepare($con, "insert into memberLogin (MemberName, MemberEmail, MemberPassword, RoleID, MemberKey) values (?,?,?,?,?)");
+            mysqli_stmt_bind_param($sql,"sssss", $Username, $Email, $hashedPassword, $Role, $memberKey);
             mysqli_stmt_execute($sql);
 
             $Username = "";
             $Password = "";
             $Password2 = "";
             $Email = "";
-             $err = "Member Added to Database";
+            $err = "Member Added to Database";
         }
-
     }
-
-
-
-
 ?>
 
 <!doctype html>
@@ -136,7 +115,6 @@ include "../includes/header.php"
                             $roleID = $row['RoleID'];
                             $roleValue = $row['RoleValue'];
                         echo "<option value='$roleID'>$roleValue</option>";
-
                         }
                         ?>
                     </select>
@@ -153,7 +131,3 @@ include "../includes/footer.php"
 ?>
 </body>
 </html>
-
-
-
-
