@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION["roleID"])){
+if (isset($_SESSION["RoleID"])){
     header("Location: index.php");
 }
 

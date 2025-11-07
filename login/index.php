@@ -23,14 +23,14 @@
 
 
         if ($row != null){
-            $DBPass = $row["memberPassword"];
-            $MemberKey= $row["memberKey"];
+            $DBPass = $row["MemberPassword"];
+            $MemberKey= $row["MemberKey"];
             $password = md5($password . $MemberKey);
 
             if ($password == $DBPass){
-                $_SESSION["roleID"] = $row["roleID"];
-                $_SESSION["UID"] = $row["memberID"];
-                if($row["roleID"]==1){
+                $_SESSION["RoleID"] = $row["RoleID"];
+                $_SESSION["UID"] = $row["MemberID"];
+                if($row["RoleID"]==1){
                     header("Location: admin.php");
                 }else{
                     header("Location: member.php");

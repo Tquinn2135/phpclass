@@ -12,7 +12,7 @@
     $minLength = 4;
     $err = "";
 
-    if ($_SESSION["roleID"] != 1){
+    if ($_SESSION["RoleID"] != 1){
         header("Location: index.php");
     }
 
