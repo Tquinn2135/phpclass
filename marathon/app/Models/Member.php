@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class Member extends Model
 {
+
     public function user_login($email, $password)
     {
         $db = db_connect();
@@ -24,10 +25,14 @@ class Member extends Model
     }
 
     //add create user function
-    public function create_user(){
+    public function create_user($username, $email, $password){
         $db = db_connect();
+        $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+
+        $hashedPassword = md5($password. $memberKey);
+        $roleID = 1;
         $query = "insert into memberLogin (MemberName, MemberEmail, MemberPassword, RoleID, MemberKey) values (?,?,?,?,?)";
-        $results = $db->query($query);
+        $results = $db->query($query,[$username, $email, $hashedPassword,$roleID, $memberKey]);
 
     }
 }
