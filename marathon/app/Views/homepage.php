@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Marathon master</title>
+
+    <?php
+    $error_styles = "";
+
+        if(isset($load_error)){
+
+            $load_error = null;
+            $error_styles = "alert alert-danger";
+            echo '<script>document.location.href = "#login"</script>';
+        }
+
+
+    ?>
+
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +44,7 @@
 
 <body>
 
+
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
@@ -53,6 +66,9 @@
                 </li>
                 <li>
                     <a href="#services">Services</a>
+                </li>
+                <li>
+                    <a href="#login">Login</a>
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
@@ -154,18 +170,92 @@
 </div>
 <!-- /.content-section-a -->
 
+<a  name="login"></a>
+<div class="content-section-b">
+    <div class="container">
+        <div class = "row">
+            <div id="col-sm-12 <?=$error_styles;?>">
+                <?php
+
+                $validation = service('validation');
+                if($validation->hasError('username')){
+                    echo $validation->getError('username');
+                }
+                else if($validation->hasError('username')) {
+                    echo $validation->getError('username');
+                }
+                else if (isset($error_message)){
+                    echo $error_message;
+                }
+
+                if($validation->hasError('email'))
+                {
+                    echo $validation->getError('username');
+                }
+                else if (isset($error_message)){
+                    echo  $error_message;
+                }
+
+                if($validation->hasError('password'))
+                {
+                    echo $validation->getError('password');
+                }
+                else if (isset($error_message)){
+                    echo  $error_message;
+                }
+
+                if($validation->hasError('password2'))
+                {
+                    echo $validation->getError('password2');
+                }
+                else if (isset($error_message)){
+                    echo  $error_message;
+                }
+
+
+
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5   col-sm-6">
+                <h2>Login</h2>
+                <?php
+                    echo form_open('http://10.7.66.26/marathon/public/login');
+                    echo form_input('username', '','placeholder = "Username"');
+                    echo form_password('password', '','placeholder = "Password"');
+                    echo form_submit('submit', 'login');
+                    echo form_close();
+                ?>
+
+            </div>
+            <div class="col-lg-5  col-sm-6">
+                <h2>Create Account</h2>
+                <?php
+                echo form_open('http://10.7.66.26/marathon/public/create');
+                echo form_input('username', '','placeholder = "Username"');
+                echo form_input('email', '', 'placeholder = "Email"');
+                echo form_password('password', '','placeholder = "Password"');
+                echo form_password('password2', '','placeholder = "Password2"');
+                echo form_submit('submit', 'Create Account');
+                echo form_close();
+                ?>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.content-section-b -->
 <a  name="contact"></a>
 <div class="banner">
-
     <div class="container">
-
         <div class="row">
             <div class="col-lg-6">
                 <h2>Take the Red Pill!</h2>
             </div>
-
         </div>
-
     </div>
     <!-- /.container -->
 
