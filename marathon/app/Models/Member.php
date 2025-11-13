@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use mysql_xdevapi\Exception;
 
 class Member extends Model
 {
@@ -26,13 +27,20 @@ class Member extends Model
 
     //add create user function
     public function create_user($username, $email, $password){
-        $db = db_connect();
-        $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+        try {
+            $db = db_connect();
+            $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X',
+                mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479),
+                mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 
-        $hashedPassword = md5($password. $memberKey);
-        $roleID = 1;
-        $query = "insert into memberLogin (MemberName, MemberEmail, MemberPassword, RoleID, MemberKey) values (?,?,?,?,?)";
-        $results = $db->query($query,[$username, $email, $hashedPassword,$roleID, $memberKey]);
-
+            $hashedPassword = md5($password . $memberKey);
+            $roleID = 1;
+            $query = "insert into memberLogin (MemberName, MemberEmail, MemberPassword, RoleID, MemberKey) values (?,?,?,?,?)";
+            $db->query($query, [$username, $email, $hashedPassword, $roleID, $memberKey]);
+            return true;
+        }
+        catch (Exception $ex){
+            return false;
+        }
     }
 }

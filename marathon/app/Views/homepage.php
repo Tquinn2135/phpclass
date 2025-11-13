@@ -188,32 +188,20 @@
                     echo $error_message;
                 }
 
-                if($validation->hasError('email'))
-                {
-                    echo $validation->getError('username');
+                if (isset($validation)){
+                    if($validation->hasError('username')){
+                        echo $validation->getError('username');
+                    }
+                    if($validation->hasError('email')){
+                        echo $validation->getError('email');
+                    }
+                    if($validation->hasError('password')){
+                        echo $validation->getError('password');
+                    }
+                    if($validation->hasError('password2')){
+                        echo $validation->getError('password2');
+                    }
                 }
-                else if (isset($error_message)){
-                    echo  $error_message;
-                }
-
-                if($validation->hasError('password'))
-                {
-                    echo $validation->getError('password');
-                }
-                else if (isset($error_message)){
-                    echo  $error_message;
-                }
-
-                if($validation->hasError('password2'))
-                {
-                    echo $validation->getError('password2');
-                }
-                else if (isset($error_message)){
-                    echo  $error_message;
-                }
-
-
-
                 ?>
             </div>
         </div>
@@ -232,13 +220,13 @@
             <div class="col-lg-5  col-sm-6">
                 <h2>Create Account</h2>
                 <?php
-                echo form_open('http://10.7.66.26/marathon/public/create');
-                echo form_input('username', '','placeholder = "Username"');
-                echo form_input('email', '', 'placeholder = "Email"');
-                echo form_password('password', '','placeholder = "Password"');
-                echo form_password('password2', '','placeholder = "Password2"');
-                echo form_submit('submit', 'Create Account');
-                echo form_close();
+                    echo form_open('http://10.7.66.26/marathon/public/create');
+                    echo form_input('username', '','placeholder = "Username"');
+                    echo form_input('email', '', 'placeholder = "Email"');
+                    echo form_password('password', '','placeholder = "Password"');
+                    echo form_password('password2', '','placeholder = "Password2"');
+                    echo form_submit('submit', 'Create Account');
+                    echo form_close();
                 ?>
             </div>
         </div>
