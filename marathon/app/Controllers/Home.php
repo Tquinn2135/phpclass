@@ -37,7 +37,9 @@ class Home extends BaseController
         $Member = new Member();
         if ($Member->user_login($username, $password))
         {
-            return view("admin_page");
+            //return view("admin_page");
+            header('location: admin');
+            exit();
         }
         else{
             $data = [
@@ -62,8 +64,7 @@ class Home extends BaseController
         ];
         if (!$this->validate($rules)){
             $data = [
-                "load_error" => "true",
-                "validation"=> $this->validator
+                "load_error" => "true"
             ];
             return view('homepage',$data);
         }
